@@ -216,7 +216,7 @@ class KoGPT2Chat(LightningModule):
 					
 				input_ids = torch.LongTensor(tok.encode(U_TKN + q + SENT + sent + S_TKN)).unsqueeze(dim=0)
 				outputs = m.generate(input_ids, 
-										 max_length=100, 
+										 max_length=80, 
 										 do_sample=True, 
 										 repetition_penalty=2.0)
 				a = tok.decode(outputs[0], skip_special_tokens=True).split('0')[1:][0].strip()
@@ -226,8 +226,8 @@ class KoGPT2Chat(LightningModule):
 				else:
 					a = a.split('.')[0] + '.' + a.split('.')[1] + '...메에'
 
-				#print("Wagle > {}".format(a.strip()))
-				return a.strip()
+				#print("Wagle > {}".format(a.strip())) #로컬 터미널 실행시 출력문
+				return a.strip() #
 
 parser = KoGPT2Chat.add_model_specific_args(parser)
 parser = Trainer.add_argparse_args(parser)
